@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taiwan Receipt Lottery Checker | Latest Winning Numbers (統一發票)</title>
+<meta name="description" content="Check Taiwan's Uniform Invoice receipt lottery in seconds: enter the last 3 digits of your receipt to see if you won NT$200, then the full 8 digits for the NT$10 million Special Prize. Synced with the Ministry of Finance.">
+<link rel="alternate" hreflang="zh-TW" href="https://upliftorch.com/tools/invoice-lottery/">
+<link rel="alternate" hreflang="en" href="https://upliftorch.com/tools/invoice-lottery/en/">
+<link rel="alternate" hreflang="x-default" href="https://upliftorch.com/tools/invoice-lottery/en/">
+<link rel="canonical" href="https://upliftorch.com/tools/invoice-lottery/en/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Taiwan Receipt Lottery Checker","description":"Check Taiwan uniform invoice lottery winning numbers","applicationCategory":"UtilityApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0"}}
+</script>
+<style>
+:root {
+  --bg: #0a1628; --bg-card: #11233d; --border: #1e3a5f;
+  --accent: #00d4ff; --green: #00ff88; --red: #ff4757; --gold: #ffcc00;
+  --text: #e6f1ff; --text-dim: #8da9c4;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.wrap { max-width: 680px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+header { text-align: center; padding: 1.5rem 0 .5rem; }
+h1 { font-size: 1.55rem; }
+h1 .accent { color: var(--accent); }
+.subtitle { color: var(--text-dim); font-size: .9rem; margin-top: .3rem; }
+.lang-switch { position: absolute; top: 1rem; right: 1rem; }
+.lang-switch a { color: var(--accent); text-decoration: none; font-size: .85rem; border: 1px solid var(--border); padding: .3rem .7rem; border-radius: 6px; }
+.period-tabs { display: flex; gap: .5rem; justify-content: center; margin: 1.25rem 0; flex-wrap: wrap; }
+.period-tab { padding: .45rem 1.1rem; border-radius: 999px; border: 1px solid var(--border); background: none; color: var(--text-dim); font-size: .9rem; cursor: pointer; }
+.period-tab.active { background: rgba(0,212,255,.12); border-color: var(--accent); color: var(--accent); font-weight: 700; }
+.check-card { background: linear-gradient(135deg, #11233d, #0d2137); border: 1px solid rgba(0,212,255,.35); border-radius: 16px; padding: 1.75rem 1.25rem; text-align: center; margin-bottom: 1.25rem; }
+.check-label { color: var(--text-dim); font-size: .9rem; margin-bottom: .75rem; }
+.digit-input { display: flex; gap: .6rem; justify-content: center; }
+.digit-input input { width: 64px; height: 76px; font-size: 2.2rem; text-align: center; background: var(--bg); border: 2px solid var(--border); border-radius: 12px; color: var(--text); outline: none; }
+.digit-input input:focus { border-color: var(--accent); }
+.full-input { margin-top: 1rem; display: none; }
+.full-input.show { display: block; }
+.full-input input { width: 100%; max-width: 320px; height: 56px; font-size: 1.5rem; text-align: center; letter-spacing: .35em; background: var(--bg); border: 2px solid var(--gold); border-radius: 12px; color: var(--text); outline: none; }
+.result { margin-top: 1.25rem; min-height: 2.2rem; font-size: 1.15rem; font-weight: 700; }
+.result.win { color: var(--green); font-size: 1.5rem; }
+.result.maybe { color: var(--gold); }
+.result.lose { color: var(--text-dim); font-weight: 400; }
+.btn-clear { margin-top: 1rem; padding: .5rem 1.5rem; border: 1px solid var(--border); border-radius: 8px; background: none; color: var(--text-dim); cursor: pointer; font-size: .85rem; }
+h2 { font-size: 1.1rem; margin: 1.75rem 0 .85rem; padding-left: .7rem; border-left: 3px solid var(--accent); }
+.numbers-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; margin-bottom: .7rem; }
+.numbers-label { color: var(--text-dim); font-size: .82rem; }
+.numbers-value { font-size: 1.45rem; font-weight: 800; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
+.numbers-value.special { color: var(--red); }
+.numbers-value.grand { color: var(--gold); }
+.numbers-value.first { color: var(--accent); }
+.numbers-value .tail { text-decoration: underline; text-underline-offset: 4px; }
+.prize-table { width: 100%; border-collapse: collapse; font-size: .85rem; margin-top: .5rem; }
+.prize-table th, .prize-table td { padding: .5rem .6rem; border-bottom: 1px solid var(--border); text-align: left; }
+.prize-table th { color: var(--text-dim); font-weight: 600; }
+.updated { text-align: center; color: var(--text-dim); font-size: .75rem; margin-top: .75rem; }
+.faq details { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: .6rem; }
+.faq summary { padding: .85rem 1.1rem; cursor: pointer; font-weight: 600; font-size: .92rem; }
+.faq p { padding: 0 1.1rem 1rem; color: var(--text-dim); font-size: .86rem; }
+footer { text-align: center; color: var(--text-dim); font-size: .8rem; margin-top: 2.5rem; border-top: 1px solid var(--border); padding-top: 1.5rem; }
+footer a { color: var(--accent); text-decoration: none; }
+.page-layout { display: grid; grid-template-columns: minmax(156px, 180px) minmax(0, 680px) minmax(156px, 180px); justify-content: center; gap: 24px; max-width: 1160px; margin: 0 auto; }
+.page-layout .wrap { width: 100%; margin: 0; }
+@media (min-width: 1360px) { }
+@media (max-width: 1359px) { .page-layout { display: block; } .page-layout .wrap { max-width: 680px; } }
+@media (max-width: 420px) { .digit-input input { width: 56px; height: 68px; font-size: 1.9rem; } }
+</style>
+</head>
+<body>
+<div class="lang-switch"><a href="../">繁中</a></div>
+<div class="page-layout">
+  
+  <div class="wrap">
+  <header>
+    <h1>Taiwan <span class="accent">Receipt Lottery</span> Checker</h1>
+    <p class="subtitle">Enter the last 3 digits of your receipt — instant result</p>
+  </header>
+
+  <div class="period-tabs" id="periodTabs"></div>
+
+  <div class="check-card">
+    <p class="check-label">Last <b>3 digits</b> of your receipt number</p>
+    <div class="digit-input">
+      <input type="tel" maxlength="1" inputmode="numeric" id="d1" aria-label="digit 1">
+      <input type="tel" maxlength="1" inputmode="numeric" id="d2" aria-label="digit 2">
+      <input type="tel" maxlength="1" inputmode="numeric" id="d3" aria-label="digit 3">
+    </div>
+    <div class="full-input" id="fullInput">
+      <p class="check-label" style="margin:1rem 0 .5rem">Last 3 match! Enter the <b>full 8 digits</b> to confirm your prize</p>
+      <input type="tel" maxlength="8" inputmode="numeric" id="fullNo" placeholder="12345678">
+    </div>
+    <p class="result" id="result"></p>
+    <button class="btn-clear" id="btnClear">Clear</button>
+  </div>
+
+  
+
+  <h2>Winning Numbers</h2>
+  <div id="numbersArea"><p class="updated">Loading…</p></div>
+  <p class="updated" id="updatedAt"></p>
+
+  <h2>Prize Tiers</h2>
+  <table class="prize-table">
+    <tr><th>Prize</th><th>How to match</th><th>Amount</th></tr>
+    <tr><td>Special Prize</td><td>All 8 digits (red number)</td><td>NT$10,000,000</td></tr>
+    <tr><td>Grand Prize</td><td>All 8 digits (gold number)</td><td>NT$2,000,000</td></tr>
+    <tr><td>First Prize</td><td>All 8 digits (blue numbers)</td><td>NT$200,000</td></tr>
+    <tr><td>Second</td><td>Last 7 digits of a First Prize number</td><td>NT$40,000</td></tr>
+    <tr><td>Third</td><td>Last 6 digits</td><td>NT$10,000</td></tr>
+    <tr><td>Fourth</td><td>Last 5 digits</td><td>NT$4,000</td></tr>
+    <tr><td>Fifth</td><td>Last 4 digits</td><td>NT$1,000</td></tr>
+    <tr><td>Sixth</td><td>Last 3 digits</td><td>NT$200</td></tr>
+  </table>
+
+  <section class="faq" style="margin-top:2rem">
+    <h2>FAQ</h2>
+    <details><summary>What is the Taiwan receipt lottery?</summary><p>Every official receipt (uniform invoice, 統一發票) in Taiwan doubles as a lottery ticket. Draws happen every two months and the top prize is NT$10 million — the government's way of encouraging consumers to ask for receipts.</p></details>
+    <details><summary>When are the draws?</summary><p>On the 25th of every odd month (Jan, Mar, May, Jul, Sep, Nov). For example, receipts dated January–February are drawn on March 25.</p></details>
+    <details><summary>How do I claim a prize?</summary><p>Prizes of NT$200–1,000 can be redeemed at major convenience stores (7-Eleven, FamilyMart, etc.). Larger prizes are claimed at designated banks with your receipt and ID. You have 3 months starting from the 6th of the month after the draw.</p></details>
+    <details><summary>Is this data official?</summary><p>Numbers are synced daily from Taiwan's Ministry of Finance open data. Results here are for reference — always verify against the official announcement before claiming.</p></details>
+  </section>
+
+  <footer>
+    <p>Source: Ministry of Finance, Taiwan. For reference only.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> Upliftorch | <a href="https://upliftorch.com">More free tools</a></p>
+  </footer>
+</div>
+  
+</div>
+
+<script>
+
+
+
+
+const DATA_URL = 'https://storage.googleapis.com/upliftorch_tool/invoice-lottery/data.json'
+let DATA = null
+let current = 0
+
+const d1 = document.getElementById('d1')
+const d2 = document.getElementById('d2')
+const d3 = document.getElementById('d3')
+const fullNo = document.getElementById('fullNo')
+const fullInput = document.getElementById('fullInput')
+const resultEl = document.getElementById('result')
+
+async function load() {
+  try {
+    const res = await fetch(DATA_URL)
+    DATA = await res.json()
+    renderTabs()
+    renderNumbers()
+    document.getElementById('updatedAt').textContent = 'Numbers synced: ' + new Date(DATA.updatedAt).toLocaleString('en-US')
+  } catch (e) {
+    document.getElementById('numbersArea').innerHTML = '<p class="updated">Failed to load numbers — please retry later.</p>'
+  }
+}
+
+function renderTabs() {
+  const tabs = document.getElementById('periodTabs')
+  tabs.innerHTML = DATA.periodList.slice(0, 3).map((p, i) =>
+    '<button class="period-tab' + (i === current ? ' active' : '') + '" data-i="' + i + '">' + p.period + '</button>'
+  ).join('')
+  tabs.querySelectorAll('.period-tab').forEach(btn => btn.addEventListener('click', () => {
+    current = parseInt(btn.dataset.i, 10)
+    renderTabs(); renderNumbers(); check()
+  }))
+}
+
+function hl(no) {
+  return no.slice(0, 5) + '<span class="tail">' + no.slice(5) + '</span>'
+}
+
+function renderNumbers() {
+  const p = DATA.periodList[current]
+  let html = ''
+  if (p.specialPrize) html += '<div class="numbers-card"><p class="numbers-label">Special Prize (NT$10M)</p><p class="numbers-value special">' + p.specialPrize + '</p></div>'
+  if (p.grandPrize) html += '<div class="numbers-card"><p class="numbers-label">Grand Prize (NT$2M)</p><p class="numbers-value grand">' + p.grandPrize + '</p></div>'
+  if (p.firstPrizeList.length) html += '<div class="numbers-card"><p class="numbers-label">First Prize (NT$200K — underlined digits win NT$200)</p>' + p.firstPrizeList.map(n => '<p class="numbers-value first">' + hl(n) + '</p>').join('') + '</div>'
+  if (p.extraSixthList && p.extraSixthList.length) html += '<div class="numbers-card"><p class="numbers-label">Additional Sixth Prize (NT$200, last 3 digits)</p><p class="numbers-value">' + p.extraSixthList.map(n => n.slice(5)).join(', ') + '</p></div>'
+  document.getElementById('numbersArea').innerHTML = html
+}
+
+function getTail() {
+  return (d1.value + d2.value + d3.value)
+}
+
+function check() {
+  if (!DATA) return
+  const tail = getTail()
+  resultEl.className = 'result'
+  if (tail.length < 3) { resultEl.textContent = ''; fullInput.classList.remove('show'); return }
+
+  const p = DATA.periodList[current]
+  const tails = new Set()
+  p.firstPrizeList.forEach(n => tails.add(n.slice(5)))
+  if (p.specialPrize) tails.add(p.specialPrize.slice(5))
+  if (p.grandPrize) tails.add(p.grandPrize.slice(5))
+  const sixthTails = new Set((p.extraSixthList || []).map(n => n.slice(5)))
+
+  if (sixthTails.has(tail) && !tails.has(tail)) {
+    resultEl.className = 'result win'
+    resultEl.textContent = 'You won NT$200! (Additional Sixth Prize)'
+    fullInput.classList.remove('show')
+  } else if (tails.has(tail)) {
+    resultEl.className = 'result maybe'
+    resultEl.textContent = 'Last 3 digits match! Enter the full number to confirm'
+    fullInput.classList.add('show')
+    fullNo.focus()
+  } else {
+    resultEl.className = 'result lose'
+    resultEl.textContent = 'No match — try your next receipt'
+    fullInput.classList.remove('show')
+  }
+}
+
+function checkFull() {
+  const no = fullNo.value
+  if (no.length < 8) return
+  const p = DATA.periodList[current]
+  resultEl.className = 'result win'
+  if (no === p.specialPrize) { resultEl.textContent = 'SPECIAL PRIZE — NT$10,000,000!!!' ; return }
+  if (no === p.grandPrize) { resultEl.textContent = 'Grand Prize — NT$2,000,000!!' ; return }
+  for (const f of p.firstPrizeList) {
+    if (no === f) { resultEl.textContent = 'First Prize — NT$200,000!'; return }
+    if (no.slice(1) === f.slice(1)) { resultEl.textContent = 'Second Prize — NT$40,000!'; return }
+    if (no.slice(2) === f.slice(2)) { resultEl.textContent = 'Third Prize — NT$10,000!'; return }
+    if (no.slice(3) === f.slice(3)) { resultEl.textContent = 'Fourth Prize — NT$4,000!'; return }
+    if (no.slice(4) === f.slice(4)) { resultEl.textContent = 'Fifth Prize — NT$1,000!'; return }
+    if (no.slice(5) === f.slice(5)) { resultEl.textContent = 'Sixth Prize — NT$200!'; return }
+  }
+  resultEl.className = 'result lose'
+  resultEl.textContent = 'Full number does not match (last-3 coincidence only)'
+}
+
+;[d1, d2, d3].forEach((el, i, arr) => {
+  el.addEventListener('input', () => {
+    el.value = el.value.replace(/\D/g, '').slice(0, 1)
+    if (el.value && i < 2) arr[i + 1].focus()
+    fullNo.value = ''
+    check()
+  })
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && !el.value && i > 0) arr[i - 1].focus()
+  })
+})
+fullNo.addEventListener('input', () => {
+  fullNo.value = fullNo.value.replace(/\D/g, '').slice(0, 8)
+  checkFull()
+})
+document.getElementById('btnClear').addEventListener('click', () => {
+  d1.value = d2.value = d3.value = fullNo.value = ''
+  resultEl.textContent = ''
+  fullInput.classList.remove('show')
+  d1.focus()
+})
+
+load()
+</script>
+
+<script>document.querySelectorAll(".current-year").forEach(function (el) { el.textContent = new Date().getFullYear(); });</script>
+
+<footer class="open-source-attribution" style="padding:24px;text-align:center"><a href="https://upliftorch.com/">Upliftorch</a> · <a href="https://upliftorch.com/tools/invoice-lottery/">Official demo / 線上工具</a></footer>
+</body>
+</html>
